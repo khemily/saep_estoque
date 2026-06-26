@@ -1,3 +1,4 @@
+from banco import cadastrar_produto, lista_produto, excluir_produto
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
@@ -97,3 +98,26 @@ entrada_quantidade.delete(0, tk.END)
 entrada_preco.delete(0, tk.END)
 
 atualizar_tabela()
+
+def excluir():
+    item_selecionado = tabela.selection()
+
+    if not item_selecionado:
+        messagebox.showwarning("Atenção", "Selecione um produto para excluir.")
+        return
+
+    item = tabela.item(item_selecionado)
+    id_produto = item["values"][0]
+
+    excluir_produto(id_produto)
+    atualizar_tabela()
+
+    messagebox.showinfo("Sucesso", "Produto excluído com sucesso!")
+
+    botao_excluir = tk.Button(
+        janela,
+        text="Excluir Produto",
+        command=excluir,
+        width=25
+    )
+    botao_excluir.pack(pady=5)

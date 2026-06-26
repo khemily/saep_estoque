@@ -11,7 +11,7 @@ def conectar ():
 
 def cadastrar_produto(nome, categoria, quantidade, preco):
     conexao = conectar()
-    cursor = conexao.curso()
+    cursor = conexao.cursor()
     
     sql = """
     INSERT INTO produtos (nome, categoria, quantidade, preco)
@@ -36,3 +36,15 @@ def lista_produto():
     conexao.close()
 
     return produto
+
+def deletar_produto(id_produto):
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = "DELETE FROM produtos WHERE id = %s"
+    cursor.execute(sql, (id_produto,))
+   
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
