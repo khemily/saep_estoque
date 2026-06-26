@@ -9,6 +9,7 @@ def conectar ():
     )
     return conexao
 
+
 def cadastrar_produto(nome, categoria, quantidade, preco):
     conexao = conectar()
     cursor = conexao.cursor()
@@ -30,7 +31,7 @@ def lista_produto():
     conexao = conectar()
     cursor = conexao.cursor()
 
-    cursor.execute("SELECT id, nome, categoria, quantidade, preco FROM produto")
+    sql = "SELECT id, nome, categoria, quantidade, preco FROM produtos"
     produto = cursor.fetchall()
 
     cursor.close()
@@ -42,7 +43,23 @@ def lista_produto():
 def excluir_produto(id_produto):
     conexao = conectar()
     cursor = conexao.cursor()
-    cursor.execute("DELETE FROM produtos WHERE id = %s", (id_produto,))
+
+    sql = "DELETE FROM produtos WHERE id = %s"
+    cursor.execute(sql, (id_produto,))
+
     conexao.commit()
+
     cursor.close()
     conexao.close()
+
+def listar_produtos():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("SELECT id, nome, categoria, quantidade, preco FROM produtos")
+    produtos = cursor.fetchall()
+
+    cursor.close()
+    conexao.close()
+
+    return produtos
