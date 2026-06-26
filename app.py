@@ -37,10 +37,6 @@ def atualizar_tabela():
 
 atualizar_tabela()
 
-janela.mainloop()
-  
-
-
 título = tk.Label(
     janela,
     text="SAEP Estoque Fácil",
@@ -91,4 +87,13 @@ botao_salvar.pack (pady=20)
 
 janela.mainloop()
 
-import tkinter as tk
+cadastrar_produto(nome, categoria, int(quantidade), float(preco))
+
+messagebox.showinfo("sucesso", "produto cadastrado com sucesso!")
+
+entrada_nome.delete(0, tk.END)
+entrada_categoria.delete(0, tk.END)
+entrada_quantidade.delete(0, tk.END)
+entrada_preco.delete(0, tk.END)
+
+atualizar_tabela()
