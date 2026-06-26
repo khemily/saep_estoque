@@ -1,10 +1,45 @@
 import tkinter as tk
 from tkinter import messagebox
-from banco import cadastrar_produto
+from tkinter import ttk
+from banco import cadastrar_produto, lista_produto
 
 janela = tk.Tk ()
 janela.title("SAEP Estoque Fácil")
 janela.geometry("500x400")
+
+tabela = ttk.Treeview(
+     janela,
+     columns=("id", "nome", "categoria", "quantidade", "preco"), 
+     show="headings"
+)
+
+tabela.heading("id", text="ID")
+tabela.heading("nome", text="Nome")
+tabela.heading("categoria", text="Categoria")
+tabela.heading("quantidade", text="Qtd")
+tabela.heading("preco", text="Preço")
+
+tabela.column("id", width=50)
+tabela.column("nome", width=160)
+tabela.column("categoria", width=140)
+tabela.column("quantidade", width=80)
+tabela.column("preco", width=80)
+
+tabela.pack(pady=10)
+
+def atualizar_tabela():
+    for item in tabela.get_children():
+        tabela.delete(item)
+
+    produtos = lista_produto()
+    for produto in produtos:
+        tabela.insert("", tk.END, values=produto)
+
+atualizar_tabela()
+
+janela.mainloop()
+  
+
 
 título = tk.Label(
     janela,
@@ -56,3 +91,4 @@ botao_salvar.pack (pady=20)
 
 janela.mainloop()
 
+import tkinter as tk
